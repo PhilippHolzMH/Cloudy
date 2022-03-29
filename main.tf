@@ -23,6 +23,10 @@ resource "aws_route_table" "customer_route_table" {
     Name = "public_route"
   }
 }
+resource "aws_main_route_table_association" "main-table" {
+  vpc_id         = aws_vpc.customer_vpc.id
+  route_table_id = aws_route_table.customer_route_table.id
+}
 
 resource "aws_route" "prod-route-igw" {
   route_table_id            = aws_route_table.customer_route_table.id
