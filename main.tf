@@ -29,3 +29,29 @@ resource "aws_route" "prod-route-igw" {
   gateway_id                = aws_internet_gateway.gw.id
   depends_on                = [aws_route_table.customer_route_table]
 }
+resource "aws_security_group" "public_subnet" {
+  name        = "public_sg"
+  description = "Allow the public Subnet to communicate"
+  vpc_id      = aws_vpc.customer_vpc.id
+
+  ingress {
+    description      = "SSH to VPC"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    #ipv6_cidr_blocks = [aws_vpc.customer_vpc.ipv6_cidr_block]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "allow_ssh"
+  }
+}
