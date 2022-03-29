@@ -13,6 +13,7 @@ resource "aws_subnet" "customer_subnet" {
     cidr_block = "110.0.0.0/24"
     tags = {
     Name = "customer-subnet"
+    map_public_ip_on_launch = true
   }
 }
 resource "aws_route_table" "customer_route_table" {
@@ -40,7 +41,6 @@ resource "aws_security_group" "public_sg" {
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-    #ipv6_cidr_blocks = [aws_vpc.customer_vpc.ipv6_cidr_block]
   }
 
   egress {
@@ -57,12 +57,18 @@ resource "aws_security_group" "public_sg" {
 }
 
 resource "aws_instance" "customer_instance" {
-  ami                       = "ami-04a50faf2a2ec1901"
+  ami                       = "ami-0dcc0ebde7b2e00db"
   instance_type             = "t2.micro"
   vpc_security_group_ids    = [aws_security_group.public_sg.id]
   subnet_id                 = aws_subnet.customer_subnet.id
-
   tags = {
     Name = "customer-ec2"
   }
+  user_data = file("./user-data.tpl")
+             
+    
+}
+resource "aws_eip" "ec2"{
+    instance = aws_instance.customer_instance.id
+    vpc = true
 }
