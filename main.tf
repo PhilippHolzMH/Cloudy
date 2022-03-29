@@ -29,8 +29,8 @@ resource "aws_route" "prod-route-igw" {
   gateway_id                = aws_internet_gateway.gw.id
   depends_on                = [aws_route_table.customer_route_table]
 }
-resource "aws_security_group" "public_subnet" {
-  name        = "public_sg"
+resource "aws_security_group" "public_sg" {
+  name        = "public-sg"
   description = "Allow the public Subnet to communicate"
   vpc_id      = aws_vpc.customer_vpc.id
 
@@ -53,5 +53,16 @@ resource "aws_security_group" "public_subnet" {
 
   tags = {
     Name = "allow_ssh"
+  }
+}
+
+resource "aws_instance" "customer_instance" {
+  ami                       = "ami-04a50faf2a2ec1901"
+  instance_type             = "t2.micro"
+  vpc_security_group_ids    = [aws_security_group.public_sg.id]
+  subnet_id                 = aws_subnet.customer_subnet.id
+
+  tags = {
+    Name = "customer-ec2"
   }
 }
