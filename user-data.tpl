@@ -1,4 +1,6 @@
  #!/bin/bash
-sudo yum install -y httpd mysql php
+sudo yum install -y httpd mysql php |
 sudo chkconfig httpd on
-sudo service httpd start
+sudo systemctl enable httpd |
+sudo systemctl start httpd |
+sudo echo '<html><h1>Hello From Your Web Server!</h1><html>' > /var/www/html/index.html
