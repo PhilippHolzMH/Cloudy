@@ -15,9 +15,10 @@ tags                      = {
                             Name = "customer-ec2"
                             }
 provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket upload-bucket-1491618 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
+    command = "aws s3api create-bucket --bucket upload-bucket-48916516 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
     }
 }
+
 resource "aws_eip" "ec2"{
     instance = aws_instance.customer_instance.id
     vpc = true
