@@ -6,6 +6,11 @@ terraform {
   }
   required_version = ">= 0.14.9"
 }
-module "vpc" {
-  source = "./module/vpc/"
+module "public-vpc" {
+  source = "./module/public-vpc/"
+}
+module "public-ec2" {
+  source        = "./module/public-ec2/"
+  public_subnet = module.public-vpc.public_subnet
+  public_sg     = module.public-vpc.public_sg
 }

@@ -64,21 +64,9 @@ tags = {
     }  
 }
 
-resource "aws_instance" "customer_instance" {
-ami                       = "ami-04a50faf2a2ec1901"
-instance_type             = "t2.micro"
-vpc_security_group_ids    = [aws_security_group.public_sg.id]
-subnet_id                 = aws_subnet.customer_subnet.id
-user_data                 = file("./user-data.tpl")
-tags                      = {
-                            Name = "customer-ec2"
-                            }
-provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket upload-bucket-48191519 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
-    }
+output "public_sg" {
+    value = aws_security_group.public_sg  
 }
-resource "aws_eip" "ec2"{
-    instance = aws_instance.customer_instance.id
-    vpc = true
+output "public_subnet" {
+    value = aws_subnet.customer_subnet 
 }
-
