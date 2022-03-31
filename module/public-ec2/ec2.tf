@@ -4,6 +4,9 @@ variable "public_subnet" {
 variable "public_sg"{
     type = object({id = string})
 }
+variable "key"{
+    type = object({key_name = string})
+}
 
 resource "aws_instance" "customer_instance" {
 ami                       = "ami-04a50faf2a2ec1901"
@@ -11,6 +14,8 @@ instance_type             = "t2.micro"
 vpc_security_group_ids    = [var.public_sg.id]
 subnet_id                 = var.public_subnet.id
 user_data                 = file("./user-data.tpl")
+key_name                  = var.key.key_name 
+#public_key                = var.key.public_key
 tags                      = {
                             Name = "customer-ec2"
                             }
