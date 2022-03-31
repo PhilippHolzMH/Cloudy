@@ -7,10 +7,10 @@ from use_case import write_tf_use_case
 use_case_input = input("Please type your usecase: website (1) ")
 write_tf_use_case(use_case_input)
 
-time.sleep(5)
-os.system("sh /Users/pholz/Desktop/neuefische/Cloudy/agent/terraform.sh")
-time.sleep(60)
-os.system("rm /Users/pholz/Desktop/neuefische/Cloudy/main.tf")
 if use_case_input == "1":
+    time.sleep(5)
+    os.system("sh /Users/pholz/Desktop/neuefische/Cloudy/agent/terraform.sh")
+    time.sleep(60)
+    os.system("rm /Users/pholz/Desktop/neuefische/Cloudy/main.tf")
     uploadurl = fetch_url()
     print("Please upload your file to: " + uploadurl)
