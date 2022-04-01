@@ -1,3 +1,5 @@
+To start the programm -> agent/python3 agent.py
+
 Situation: Customer has no clue about cloud-solution
 Task: Set up an agent to convert the on premise system into the cloud
 Action:
@@ -10,3 +12,5 @@ Action:
         -   Docker
         -   Kubernetes
 Result: ?
+
+

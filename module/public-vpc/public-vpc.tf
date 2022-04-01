@@ -8,6 +8,7 @@ resource "aws_internet_gateway" "gw" {
     vpc_id = aws_vpc.customer_vpc.id
 }
 
+
 resource "aws_subnet" "customer_subnet" {
     vpc_id = aws_vpc.customer_vpc.id
     cidr_block = "110.0.0.0/24"
@@ -16,23 +17,7 @@ resource "aws_subnet" "customer_subnet" {
     map_public_ip_on_launch = true
 }
 }
-resource "aws_route_table" "customer_route_table" {
-vpc_id = aws_vpc.customer_vpc.id
-tags = {
-    Name = "public_route"
-}
-}
-resource "aws_main_route_table_association" "main-table" {
-vpc_id         = aws_vpc.customer_vpc.id
-route_table_id = aws_route_table.customer_route_table.id
-}
 
-resource "aws_route" "prod-route-igw" {
-route_table_id            = aws_route_table.customer_route_table.id
-destination_cidr_block    = "0.0.0.0/0"
-gateway_id                = aws_internet_gateway.gw.id
-depends_on                = [aws_route_table.customer_route_table]
-}
 resource "aws_security_group" "public_sg" {
 name        = "public-sg"
 description = "Allow the public Subnet to communicate"
@@ -62,6 +47,34 @@ egress {
 tags = {
     Name = "allow_ssh"
     }  
+}
+resource "aws_eip" "nat_gateway"{
+    vpc = true
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_gateway.id
+  subnet_id     = aws_subnet.customer_subnet.id
+  tags = {
+    Name = "gw NAT"
+  }
+}
+resource "aws_route_table" "customer_route_table" {
+vpc_id = aws_vpc.customer_vpc.id
+tags = {
+    Name = "public_route"
+}
+}
+resource "aws_main_route_table_association" "main-table" {
+vpc_id         = aws_vpc.customer_vpc.id
+route_table_id = aws_route_table.customer_route_table.id
+}
+
+resource "aws_route" "route-rt-igw" {
+route_table_id            = aws_route_table.customer_route_table.id
+destination_cidr_block    = "0.0.0.0/0"
+gateway_id                = aws_internet_gateway.gw.id
+depends_on                = [aws_route_table.customer_route_table]
 }
 
 output "public_sg" {
