@@ -9,14 +9,11 @@ required_providers {
 module "public-vpc" {
   source = "./module/public-vpc/"
 }
-#module "private-vpc"{
-#  source = "./module/private-vpc/"
-#}
-#module "rds"{
-#  source = "./module/database"
-#  private_subnet = module.private-vpc.private_subnet
-#  private_sg     = module.private-vpc.private_sg
-#}
+module "rds"{
+  source = "./module/database"
+  private_subnet = module.private-vpc.private_subnet
+  private_sg     = module.private-vpc.private_sg
+}
 #memo an mich https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids
 
 module "public-ec2" {

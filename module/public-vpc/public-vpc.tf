@@ -1,22 +1,14 @@
 data "aws_availability_zones" "available" {}
-#data "aws_subnet_ids" "private" {
-#    vpc_id = var.vpc_id
-#}
+
 
 resource "aws_vpc" "customer_vpc" {
-    cidr_block = "110.0.0.0/16"
+    cidr_block = "54.0.0.0/16"
     enable_dns_hostnames = true
     tags = {
         Name = "customer-vpc"
 }
 }
-resource "aws_vpc" "customer_private_vpc" {
-  cidr_block           = "192.168.0.0/16"
-  enable_dns_hostnames = true
-  tags = {
-        Name = "customer-private-vpc"
-}
-}
+
 resource "aws_internet_gateway" "gw" {
     vpc_id = aws_vpc.customer_vpc.id
 }
@@ -25,28 +17,28 @@ resource "aws_internet_gateway" "gw" {
 resource "aws_subnet" "customer_subnet" {
     count                   = "${length(data.aws_availability_zones.available.names)}"
     vpc_id                  = aws_vpc.customer_vpc.id
-    cidr_block              = "110.0.${1+count.index}.0/24"
+    cidr_block              = "54.0.${1+count.index}.0/24"
     availability_zone       = "${data.aws_availability_zones.available.names[count.index]}"
     map_public_ip_on_launch = true
     tags = {
         Name = "customer-public-subnet"
-}
+    }
 }
 
 resource "aws_subnet" "private_subnet" {
-  count = "${length(data.aws_availability_zones.available.names)}"
-  vpc_id = "${aws_vpc.customer_vpc.id}"
-  cidr_block = "192.168.${20+count.index}.0/24"
-  availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
-  map_public_ip_on_launch = false
-  tags = {
+    count = "${length(data.aws_availability_zones.available.names)}"
+    vpc_id = aws_vpc.customer_vpc.id
+    cidr_block = "54.0.${30+count.index}.0/24"
+    availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
+    map_public_ip_on_launch = false
+    tags = {
       Name = "customer-private-subnet"
-  }
+    }
 }
 
 resource "aws_security_group" "public_sg" {
 name        = "public-sg"
-description = "Allow the public Subnet to communicate"
+description = "ssh and http"
 vpc_id      = aws_vpc.customer_vpc.id
 
 ingress {
@@ -76,8 +68,8 @@ tags = {
 }
 resource "aws_security_group" "private_sg" {
 name        = "private-sg"
-description = "Allow the public Subnet to communicate"
-vpc_id      = aws_vpc.customer_private_vpc.id
+description = "vpc to db"
+vpc_id      = aws_vpc.customer_vpc.id
 
 ingress {
     description      = "pubVPC to DB"
@@ -101,13 +93,13 @@ resource "aws_eip" "nat_gateway"{
     vpc = true
 }
 
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = aws_subnet.customer_subnet.id
-  tags = {
-    Name = "gw NAT"
-  }
-}
+#resource "aws_nat_gateway" "nat" {
+#  allocation_id = aws_eip.nat_gateway.id
+#  subnet_id     = aws_subnet.customer_subnet.id
+#  tags = {
+#    Name = "gw NAT"
+#  }
+#}
 resource "aws_route_table" "customer_route_table" {
 vpc_id = aws_vpc.customer_vpc.id
 tags = {
@@ -130,7 +122,7 @@ output "public_sg" {
     value = aws_security_group.public_sg  
 }
 output "public_subnet" {
-    value = aws_subnet.customer_subnet 
+    value = aws_subnet.customer_subnet[0] 
 }
 output "private_sg" {
     value = aws_security_group.private_sg  
