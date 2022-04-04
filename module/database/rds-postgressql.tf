@@ -8,7 +8,7 @@ variable "private_sg"{
 
 resource "aws_db_subnet_group" "default" {
   name       = "private subnetgroup for rds"
-  subnet_ids = var.private_subnet_list
+  subnet_ids = var.private_subnet_ids
 }
 
 resource "aws_db_instance" "customer_db" {
