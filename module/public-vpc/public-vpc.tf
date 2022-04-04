@@ -23,14 +23,13 @@ resource "aws_internet_gateway" "gw" {
 
 
 resource "aws_subnet" "customer_subnet" {
-    count = "${length(data.aws_availability_zones.available.names)}"
-    vpc_id = aws_vpc.customer_vpc.id
-    cidr_block = "110.0.${1+count.index}.0/24"
-    availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
+    count                   = "${length(data.aws_availability_zones.available.names)}"
+    vpc_id                  = aws_vpc.customer_vpc.id
+    cidr_block              = "110.0.${1+count.index}.0/24"
+    availability_zone       = "${data.aws_availability_zones.available.names[count.index]}"
     map_public_ip_on_launch = true
     tags = {
         Name = "customer-public-subnet"
-    map_public_ip_on_launch = true
 }
 }
 
