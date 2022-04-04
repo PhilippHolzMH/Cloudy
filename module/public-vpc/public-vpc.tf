@@ -127,6 +127,6 @@ output "public_subnet" {
 output "private_sg" {
     value = aws_security_group.private_sg  
 }
-output "private_subnet" {
-    value = aws_subnet.private_subnet 
+output "private_subnet_ids" {
+    value = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
 }
