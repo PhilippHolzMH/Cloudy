@@ -73,10 +73,10 @@ vpc_id      = aws_vpc.customer_vpc.id
 
 ingress {
     description      = "pubVPC to DB"
-    from_port        = 3389
-    to_port          = 3389
+    from_port        = 5432
+    to_port          = 5432
     protocol         = "tcp"
-    cidr_blocks      = ["110.0.0.0/24"]
+    cidr_blocks      = ["54.0.0.0/8"]
 }
 egress {
     from_port        = 0
@@ -93,13 +93,6 @@ resource "aws_eip" "nat_gateway"{
     vpc = true
 }
 
-#resource "aws_nat_gateway" "nat" {
-#  allocation_id = aws_eip.nat_gateway.id
-#  subnet_id     = aws_subnet.customer_subnet.id
-#  tags = {
-#    Name = "gw NAT"
-#  }
-#}
 resource "aws_route_table" "customer_route_table" {
 vpc_id = aws_vpc.customer_vpc.id
 tags = {
