@@ -24,6 +24,5 @@ resource "aws_db_instance" "customer_db" {
   password               = "testpassword"
   vpc_security_group_ids = [var.private_sg.id]
   db_subnet_group_name   = "default"
-  publicly_accessible    = true
   skip_final_snapshot    = true
 }
