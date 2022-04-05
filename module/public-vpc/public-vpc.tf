@@ -93,13 +93,6 @@ resource "aws_eip" "nat_gateway"{
     vpc = true
 }
 
-#resource "aws_nat_gateway" "nat" {
-#  allocation_id = aws_eip.nat_gateway.id
-#  subnet_id     = aws_subnet.customer_subnet.id
-#  tags = {
-#    Name = "gw NAT"
-#  }
-#}
 resource "aws_route_table" "customer_route_table" {
 vpc_id = aws_vpc.customer_vpc.id
 tags = {
