@@ -73,10 +73,10 @@ vpc_id      = aws_vpc.customer_vpc.id
 
 ingress {
     description      = "pubVPC to DB"
-    from_port        = 3389
-    to_port          = 3389
+    from_port        = 5432
+    to_port          = 5432
     protocol         = "tcp"
-    cidr_blocks      = ["110.0.0.0/24"]
+    cidr_blocks      = ["54.0.0.0/8"]
 }
 egress {
     from_port        = 0
@@ -120,6 +120,6 @@ output "public_subnet" {
 output "private_sg" {
     value = aws_security_group.private_sg  
 }
-output "private_subnet" {
-    value = aws_subnet.private_subnet 
+output "private_subnet_ids" {
+    value = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
 }
