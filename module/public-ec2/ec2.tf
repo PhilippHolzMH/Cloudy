@@ -8,6 +8,7 @@ variable "key"{
     type = object({key_name = string})
 }
 
+
 resource "aws_instance" "customer_instance" {
 ami                       = "ami-04a50faf2a2ec1901"
 instance_type             = "t2.micro"
@@ -19,7 +20,7 @@ tags                      = {
                             Name = "customer-ec2"
                             }
 provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket upload-bucket-48916516 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
+    command = "aws s3api create-bucket --bucket customer-upload-bucket12 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
     }
 }
 

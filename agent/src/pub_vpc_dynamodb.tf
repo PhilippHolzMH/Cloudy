@@ -9,6 +9,10 @@ required_providers {
 module "public-vpc" {
   source = "./module/public-vpc/"
 }
+module "dynamodb"{
+  source = "./module/dynamodb"
+
+}
 
 module "public-ec2" {
   source        = "./module/public-ec2/"
