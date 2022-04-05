@@ -11,8 +11,8 @@ resource "aws_vpc" "customer_private_vpc" {
   cidr_block           = "192.168.0.0/16"
   enable_dns_hostnames = false
   tags = {
-        Name = "customer-private-vpc"
-}
+    Name = "customer-private-vpc"
+    }
 }
 resource "aws_subnet" "private_subnet" {
   count = "${length(data.aws_availability_zones.available.names)}"
@@ -21,29 +21,29 @@ resource "aws_subnet" "private_subnet" {
   availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
   map_public_ip_on_launch = false
   tags = {
-      Name = "customer-private-subnet"
-  }
+    Name = "customer-private-subnet"
+    }
 }
 resource "aws_security_group" "private_sg" {
-name        = "private-sg"
-description = "Allow the public Subnet to communicate"
-vpc_id      = aws_vpc.customer_private_vpc.id
+  name        = "private-sg"
+  description = "Allow the public Subnet to communicate"
+  vpc_id      = aws_vpc.customer_private_vpc.id
 
-ingress {
+  ingress {
     description      = "pubVPC to DB"
     from_port        = 3389
     to_port          = 3389
     protocol         = "tcp"
     cidr_blocks      = ["110.0.0.0/24"]
-}
-egress {
+  }
+  egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
-}
-tags = {
+  }
+  tags = {
     Name = "allow_to_db"
     }  
 }

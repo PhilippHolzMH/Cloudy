@@ -1,8 +1,8 @@
 variable "hash_key" {
-    type = string
+  type = string
 }
 variable "range_key" {
-    type = string
+  type = string
 }
 
 resource "aws_dynamodb_table" "customerstable" {

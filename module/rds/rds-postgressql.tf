@@ -3,13 +3,13 @@ variable "private_subnet_ids" {
 }
 
 variable "private_sg"{
-    type = object({id = string})
+  type = object({id = string})
 }
 variable "db_name"{
-    type = string
+  type = string
 }
 variable "db_password" {
-    type = string
+  type = string
 }
 
 resource "aws_db_subnet_group" "default" {
