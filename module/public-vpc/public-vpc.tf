@@ -93,7 +93,7 @@ resource "aws_eip" "nat_gateway"{
     vpc = true
 }
 
-resource "aws_route_table" "customer_route_table" {
+resource "aws_route_table" "public_route_table" {
 vpc_id = aws_vpc.customer_vpc.id
 tags = {
     Name = "public_route"
@@ -101,14 +101,14 @@ tags = {
 }
 resource "aws_main_route_table_association" "main-table" {
 vpc_id         = aws_vpc.customer_vpc.id
-route_table_id = aws_route_table.customer_route_table.id
+route_table_id = aws_route_table.public_route_table.id
 }
 
 resource "aws_route" "route-rt-igw" {
-route_table_id            = aws_route_table.customer_route_table.id
+route_table_id            = aws_route_table.public_route_table.id
 destination_cidr_block    = "0.0.0.0/0"
 gateway_id                = aws_internet_gateway.gw.id
-depends_on                = [aws_route_table.customer_route_table]
+depends_on                = [aws_route_table.public_route_table]
 }
 
 output "public_sg" {
