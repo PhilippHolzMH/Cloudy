@@ -1,2 +1,2 @@
-def collect_variables(data):
-    
+def collect_variables(name,size):
+     

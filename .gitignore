@@ -1,6 +1,7 @@
 /.terraform
 .terraform.lock.hcl
 terraform.tfstate
-.DS_Store
 terraform.tfstate.backup
+terraform.tfstate
 /module/key
+.DS_Store
