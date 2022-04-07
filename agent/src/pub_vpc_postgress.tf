@@ -1,3 +1,12 @@
+variable "db_engine"{
+  type = string
+}
+variable "db_engine_version"{
+  type = string
+}
+variable "instance_type"{
+  type = string
+}
 variable "ami"{
   type = string
 }
@@ -8,6 +17,9 @@ variable "user_name" {
   type = string
 }
 variable "hd_size" {
+  type = string
+}
+variable "identifier"{
   type = string
 }
 terraform {
@@ -30,6 +42,10 @@ module "rds"{
   private_sg          = module.public-vpc.private_sg
   user_name           = "${var.user_name}"
   hd_size             = "${var.hd_size}"
+  instance_type       = "${var.instance_type}"
+  db_engine           = "${var.db_engine}"
+  db_engine_version   = "${var.db_engine_version}"
+  identifier          = "${var.identifier}"
   db_password         = module.key.db_password
 }
 

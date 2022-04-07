@@ -3,8 +3,8 @@ from customer_variables import collect_variables
 
 def region_to_ami(region):
     if region == "1":
-        aws_region = "us-west-1"
-        aws_ami = "ami-04a50faf2a2ec1901"
+        aws_region = "us-west-2"
+        aws_ami = "ami-00ee4df451840fa9d"
         tf_region = "region = "+ '"{}"'.format(aws_region)
         tf_ami = "ami = "+ '"{}"'.format(aws_ami)
     if region == "2":

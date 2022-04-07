@@ -1,15 +1,17 @@
-
 variable "region"{
   type = string
 }
 variable "ami"{
   type = string
 }
+variable "table_name"{
+  type = string
+}
 variable "hash_key" {
-    type = string
+  type = string
 }
 variable "range_key" {
-    type = string
+  type = string
 }
 terraform {
   required_providers {
@@ -29,6 +31,7 @@ module "dynamodb"{
   source = "./module/dynamodb"
   hash_key = "${var.hash_key}"
   range_key = "${var.range_key}"
+  table_name = "${var.table_name}"
 }
 
 module "public-ec2" {
