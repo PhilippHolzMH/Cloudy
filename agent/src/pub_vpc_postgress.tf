@@ -38,7 +38,7 @@ module "public-ec2" {
   public_subnet = module.public-vpc.public_subnet
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
-  ami        = "${var.ami}"
+  ami           = "${var.ami}"
 }
 module "key" {
   source = "./module/key/"  

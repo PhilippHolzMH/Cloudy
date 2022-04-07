@@ -6,7 +6,7 @@ def region_to_ami(region):
         aws_region = "us-west-1"
         aws_ami = "ami-04a50faf2a2ec1901"
         tf_region = "region = "+ '"{}"'.format(aws_region)
-        tf_ami = "tf_ami = "+ '"{}"'.format(aws_ami)
+        tf_ami = "ami = "+ '"{}"'.format(aws_ami)
     if region == "2":
         aws_region = "eu-central-1"
         aws_ami = "ami-0dcc0ebde7b2e00db"
