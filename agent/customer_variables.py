@@ -1,4 +1,4 @@
-def collect_variables(value1,value2):
-    with open('terraform.tfvars', 'w') as file:
-        file.write(value1 + "\n" + value2)
+def collect_variables(*values):
+    with open('terraform.tfvars', 'a') as file:
+        file.write("\n".join(values))
     file.close 

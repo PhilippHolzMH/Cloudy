@@ -12,12 +12,10 @@ resource "aws_dynamodb_table" "customerstable" {
   range_key      = var.range_key
   stream_enabled = true
   stream_view_type = "NEW_IMAGE"
-
   attribute {
     name = var.hash_key
     type = "S"
   }
-
   attribute {
     name = var.range_key
     type = "S"

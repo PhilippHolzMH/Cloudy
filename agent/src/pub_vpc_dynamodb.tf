@@ -1,10 +1,13 @@
 terraform {
   required_providers {
     aws = {
-    source  = "hashicorp/aws"
+      source  = "hashicorp/aws"
     }
-  }
+}
   required_version = ">= 0.14.9"
+}
+provider "aws" {
+  region = "us-east-1"
 }
 variable "hash_key" {
     type = string
