@@ -12,7 +12,7 @@ def write_dbtf_use_case (case):
             collect_variables(tf_user,tf_hdsize)
             shutil.copyfile("src/pub_vpc_postgress.tf", "../main.tf")
             shutil.move("terraform.tfvars","../terraform.tfvars")
-            return(11)
+            
         else: 
             print("wrong input")
             
@@ -25,7 +25,7 @@ def write_dbtf_use_case (case):
         collect_variables(tf_hash,tf_range)
         shutil.copyfile("src/pub_vpc_dynamodb.tf", "../main.tf")
         shutil.move("terraform.tfvars","../terraform.tfvars")
-        return(12)
+        
     else:
         print("wrong input")
    
