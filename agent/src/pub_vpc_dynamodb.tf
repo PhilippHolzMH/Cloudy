@@ -1,3 +1,16 @@
+
+variable "region"{
+  type = string
+}
+variable "ami"{
+  type = string
+}
+variable "hash_key" {
+    type = string
+}
+variable "range_key" {
+    type = string
+}
 terraform {
   required_providers {
     aws = {
@@ -7,13 +20,7 @@ terraform {
   required_version = ">= 0.14.9"
 }
 provider "aws" {
-  region = "us-east-1"
-}
-variable "hash_key" {
-    type = string
-}
-variable "range_key" {
-    type = string
+  region = "${var.region}"
 }
 module "public-vpc" {
   source = "./module/public-vpc/"
@@ -29,6 +36,7 @@ module "public-ec2" {
   public_subnet = module.public-vpc.public_subnet
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
+  ami           = "${var.ami}"
 }
 module "key" {
   source = "./module/key/"  
