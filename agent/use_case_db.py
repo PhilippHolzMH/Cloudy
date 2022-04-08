@@ -9,13 +9,11 @@ def write_dbtf_use_case (case):
             engine(engine_input)
         hard_drive_input = input("Which size of hard drive do you need ? Choose between 20-60GB ")
         if hard_drive_input >= "20" and hard_drive_input <= "60": 
-            hard_drive_size = hard_drive_input
-            instance_input = input ("What`s your desired computing power ? low (1) high (2) ")
-            instance_type = instance_strength(instance_input)
+            instance_type = instance_strength(hard_drive_input)
             user_name = input("Which Username should I make to the Administrator ? ")
             db_name = input ("Define your DB-Name: ")
             tf_user = "user_name = "+ '"{}"'.format(user_name)
-            tf_hdsize = "hd_size = "+ '"{}"'.format(hard_drive_size)
+            tf_hdsize = "hd_size = "+ '"{}"'.format(hard_drive_input)
             tf_dbname = "identifier = "+ '"{}"'.format(db_name)
             tf_instance_type = "instance_type = "+ '"{}"'.format(instance_type)
             collect_variables(tf_user,tf_hdsize,tf_instance_type, tf_dbname)

@@ -1,6 +1,6 @@
 def instance_strength(type):
-    if type == "1":
+    if type <= "40":
         instance_type = "db.t3.micro"
-    if type == "2":
+    if type >= "41":
         instance_type = "db.t4g.micro"
     return(instance_type)
