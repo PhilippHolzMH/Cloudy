@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 sudo yum install -y httpd mysql php postgressql|
 sudo chkconfig httpd on
 sudo systemctl enable httpd |
