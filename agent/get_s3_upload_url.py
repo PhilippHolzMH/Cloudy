@@ -1,5 +1,5 @@
 from var.variables import tmp_bucket
 
 def fetch_url():
-    response = str("http://" +tmp_bucket+ ".s3.amazonaws.com/")
+    response = str("aws s3 cp $your-File s3://" +tmp_bucket+"/$your-Filename" )
     return(response)

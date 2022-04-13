@@ -17,7 +17,7 @@ resource "aws_instance" "customer_instance" {
     instance_type             = "t2.micro"
     vpc_security_group_ids    = [var.public_sg.id]
     subnet_id                 = var.public_subnet.id
-    user_data                 = file("./user-data.tpl")
+    user_data                 = file("./module/public-ec2/user-data.tpl")
     key_name                  = var.key.key_name 
     tags                      = {
         Name = "customer-ec2"

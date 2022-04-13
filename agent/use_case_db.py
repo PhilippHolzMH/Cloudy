@@ -14,7 +14,7 @@ def write_dbtf_use_case (case):
             db_name = input ("Define your DB-Name: ")
             tf_user = "user_name = "+ '"{}"'.format(user_name)
             tf_hdsize = "hd_size = "+ '"{}"'.format(hard_drive_input)
-            tf_dbname = "identifier = "+ '"{}"'.format(db_name)
+            tf_dbname = str.lower("identifier = "+ '"{}"'.format(db_name))
             tf_instance_type = "instance_type = "+ '"{}"'.format(instance_type)
             write_into_tfvars(tf_user,tf_hdsize,tf_instance_type, tf_dbname)
             shutil.copyfile("src/pub_vpc_postgress.tf", "../main.tf")
