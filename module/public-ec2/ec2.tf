@@ -23,7 +23,7 @@ resource "aws_instance" "customer_instance" {
         Name = "customer-ec2"
         }
 provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket customer-upload-bucket12 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
+    command = "aws s3api create-bucket --bucket customer-upload-bucket12 --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2"
     }
 }
 
