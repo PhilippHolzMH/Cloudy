@@ -122,3 +122,9 @@ output "private_sg" {
 output "private_subnet_ids" {
     value = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
 }
+output "vpcid" {
+    value = aws_vpc.customer_vpc.id  
+}
+output "cidrblock" {
+    value = aws_vpc.customer_vpc.cidr_block
+}
