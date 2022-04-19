@@ -15,6 +15,6 @@ resource "aws_lb_target_group" "lb_target" {
 resource "aws_vpc" "main" {
   cidr_block = var.cidrblock
 }
-output "elb_tg_arn"{
+output "lb_tg_arn"{
     value = aws_lb_target_group.lb_target.arn
 }

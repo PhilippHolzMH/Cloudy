@@ -1,4 +1,7 @@
-variable "public_subnet" {
+variable "public_sub1" {
+    type = object({id = string})
+}
+variable "public_sub2" {
     type = object({id = string})
 }
 variable "public_sg"{
@@ -7,7 +10,7 @@ variable "public_sg"{
 variable "instanceid"{
     type = string
 }
-variable "elb_tg_arn"{
+variable "lb_tg_arn"{
     type = string
 }
 
@@ -17,7 +20,7 @@ resource "aws_lb" "customer_lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.public_sg.id]
-  subnets            = [var.public_subnet.id]
+  subnets            = [var.public_sub1.id,var.public_sub2.id]
 
   enable_deletion_protection = true
   idle_timeout                = 400
@@ -26,12 +29,9 @@ resource "aws_lb" "customer_lb" {
     Name = "customer-elb"
   }
 }
-resource "aws_elb_attachment" "elb_ec2" {
-  elb      = aws_lb.customer_lb.id
-  instance = var.instanceid
-}
+
 resource "aws_lb_target_group_attachment" "lb_targetgroup_attachment" {
-  target_group_arn = var.elb_tg_arn
+  target_group_arn = var.lb_tg_arn
   target_id        = var.instanceid
   port             = 80
 }

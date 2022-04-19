@@ -1,5 +1,5 @@
 data "aws_availability_zones" "available" {}
-
+#data "aws_subnet" "available" {}
 
 resource "aws_vpc" "customer_vpc" {
     cidr_block = "54.0.0.0/16"
@@ -114,7 +114,7 @@ output "public_sg" {
     value = aws_security_group.public_sg  
 }
 output "public_subnet" {
-    value = [aws_subnet.customer_subnet]
+    value = aws_subnet.customer_subnet[0]
 }
 output "private_sg" {
     value = aws_security_group.private_sg  
@@ -127,4 +127,10 @@ output "vpcid" {
 }
 output "cidrblock" {
     value = aws_vpc.customer_vpc.cidr_block
+}
+output "public_subnet_for_lb1" {
+    value = aws_subnet.customer_subnet[0]
+}
+output "public_subnet_for_lb2" {
+    value = aws_subnet.customer_subnet[1]
 }
