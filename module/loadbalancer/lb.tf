@@ -1,4 +1,3 @@
-data "aws_subnets" "available" {}
 variable "public_subnet" {
     type = object({id = string})
 }
@@ -13,39 +12,22 @@ variable "elb_tg_arn"{
 }
 
 
-resource "aws_elb" "customer_lb" {
-    type               = "instance"
-    internal           = false
-    subnets            = [var.public_subnet.id]
-    security_groups    = [var.public_sg.id]
+resource "aws_lb" "customer_lb" {
+  name               = "customer-lb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [var.public_sg.id]
+  subnets            = [var.public_subnet.id]
 
-
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
-
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:80/"
-    interval            = 30
-  }
-    cross_zone_load_balancing   = true
-    idle_timeout                = 400
-    connection_draining         = true
-    connection_draining_timeout = 400
+  enable_deletion_protection = true
+  idle_timeout                = 400
 
   tags = {
     Name = "customer-elb"
   }
 }
 resource "aws_elb_attachment" "elb_ec2" {
-  elb      = aws_elb.customer_lb.id
+  elb      = aws_lb.customer_lb.id
   instance = var.instanceid
 }
 resource "aws_lb_target_group_attachment" "lb_targetgroup_attachment" {

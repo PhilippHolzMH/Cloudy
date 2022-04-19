@@ -114,7 +114,7 @@ output "public_sg" {
     value = aws_security_group.public_sg  
 }
 output "public_subnet" {
-    value = aws_subnet.customer_subnet[0]
+    value = [aws_subnet.customer_subnet]
 }
 output "private_sg" {
     value = aws_security_group.private_sg  
