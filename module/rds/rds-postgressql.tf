@@ -13,6 +13,18 @@ variable "user_name" {
 variable "hd_size" {
   type = string
 }
+variable "instance_type"{
+  type = string
+}
+variable "db_engine" {
+  type = string
+}
+variable "db_engine_version"{
+  type = string
+}
+variable "identifier"{
+  type = string
+}
 
 resource "aws_db_subnet_group" "default" {
   name       = "private subnetgroup for rds"
@@ -20,11 +32,11 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "customer_db" {
-  identifier             = "customer"
-  instance_class         = "db.t3.micro"
+  identifier             = var.identifier
+  instance_class         = var.instance_type
   allocated_storage      = var.hd_size
-  engine                 = "postgres"
-  engine_version         = "13.4"
+  engine                 = var.db_engine
+  engine_version         = var.db_engine_version
   username               = var.user_name
   password               = var.db_password
   vpc_security_group_ids = [var.private_sg.id]

@@ -10,6 +10,9 @@ variable "key"{
 variable "ami" {
     type = string  
 }
+variable "s3name"{
+    type = string
+}
 
 
 resource "aws_instance" "customer_instance" {
@@ -17,13 +20,13 @@ resource "aws_instance" "customer_instance" {
     instance_type             = "t2.micro"
     vpc_security_group_ids    = [var.public_sg.id]
     subnet_id                 = var.public_subnet.id
-    user_data                 = file("./user-data.tpl")
+    user_data                 = file("./module/public-ec2/user-data.tpl")
     key_name                  = var.key.key_name 
     tags                      = {
         Name = "customer-ec2"
         }
 provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket customer-upload-bucket12 --region us-west-1 --create-bucket-configuration LocationConstraint=us-west-1"
+    command = var.s3name
     }
 }
 

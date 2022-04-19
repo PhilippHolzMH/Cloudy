@@ -1,15 +1,11 @@
-
 variable "region"{
   type = string
 }
 variable "ami"{
   type = string
 }
-variable "hash_key" {
-    type = string
-}
-variable "range_key" {
-    type = string
+variable "s3name" {
+  type = string  
 }
 terraform {
   required_providers {
@@ -25,10 +21,8 @@ provider "aws" {
 module "public-vpc" {
   source = "./module/public-vpc/"
 }
-module "dynamodb"{
-  source = "./module/dynamodb"
-  hash_key = "${var.hash_key}"
-  range_key = "${var.range_key}"
+module "lambda" {
+  source = "./module/lambda/"
 }
 
 module "public-ec2" {
@@ -37,6 +31,7 @@ module "public-ec2" {
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
   ami           = "${var.ami}"
+  s3name        = "${var.s3name}"
 }
 module "key" {
   source = "./module/key/"  

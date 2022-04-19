@@ -1,10 +1,10 @@
-from customer_variables import collect_variables
+from customer_variables import write_into_tfvars
 
 
-def region_to_ami(region):
+def get_ami(region):
     if region == "1":
-        aws_region = "us-west-1"
-        aws_ami = "ami-04a50faf2a2ec1901"
+        aws_region = "us-west-2"
+        aws_ami = "ami-00ee4df451840fa9d"
         tf_region = "region = "+ '"{}"'.format(aws_region)
         tf_ami = "ami = "+ '"{}"'.format(aws_ami)
     if region == "2":
@@ -17,4 +17,6 @@ def region_to_ami(region):
         aws_ami = "ami-0ab0bbbd329f565e6"
         tf_region = "region = "+ '"{}"'.format(aws_region)
         tf_ami = "ami = "+ '"{}"'.format(aws_ami)
-    collect_variables(tf_region,tf_ami)
+    write_into_tfvars(tf_region,tf_ami)
+
+    return(aws_region)

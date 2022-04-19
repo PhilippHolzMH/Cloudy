@@ -1,3 +1,12 @@
+variable "db_engine"{
+  type = string
+}
+variable "db_engine_version"{
+  type = string
+}
+variable "instance_type"{
+  type = string
+}
 variable "ami"{
   type = string
 }
@@ -9,6 +18,12 @@ variable "user_name" {
 }
 variable "hd_size" {
   type = string
+}
+variable "identifier"{
+  type = string
+}
+variable "s3name" {
+  type = string  
 }
 terraform {
   required_providers {
@@ -30,6 +45,10 @@ module "rds"{
   private_sg          = module.public-vpc.private_sg
   user_name           = "${var.user_name}"
   hd_size             = "${var.hd_size}"
+  instance_type       = "${var.instance_type}"
+  db_engine           = "${var.db_engine}"
+  db_engine_version   = "${var.db_engine_version}"
+  identifier          = "${var.identifier}"
   db_password         = module.key.db_password
 }
 
@@ -39,6 +58,7 @@ module "public-ec2" {
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
   ami           = "${var.ami}"
+  s3name        = "${var.s3name}"
 }
 module "key" {
   source = "./module/key/"  
