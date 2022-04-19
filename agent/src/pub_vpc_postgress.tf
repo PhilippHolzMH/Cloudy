@@ -22,6 +22,9 @@ variable "hd_size" {
 variable "identifier"{
   type = string
 }
+variable "s3name" {
+  type = string  
+}
 terraform {
   required_providers {
     aws = {
@@ -55,6 +58,7 @@ module "public-ec2" {
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
   ami           = "${var.ami}"
+  s3name        = "${var.s3name}"
 }
 module "key" {
   source = "./module/key/"  

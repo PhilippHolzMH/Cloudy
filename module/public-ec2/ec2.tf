@@ -10,6 +10,9 @@ variable "key"{
 variable "ami" {
     type = string  
 }
+variable "s3name"{
+    type = string
+}
 
 
 resource "aws_instance" "customer_instance" {
@@ -23,7 +26,7 @@ resource "aws_instance" "customer_instance" {
         Name = "customer-ec2"
         }
 provisioner "local-exec" {
-    command = "aws s3api create-bucket --bucket customer-upload-bucket12 --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2"
+    command = var.s3name
     }
 }
 

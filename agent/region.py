@@ -18,3 +18,5 @@ def get_ami(region):
         tf_region = "region = "+ '"{}"'.format(aws_region)
         tf_ami = "ami = "+ '"{}"'.format(aws_ami)
     write_into_tfvars(tf_region,tf_ami)
+
+    return(aws_region)

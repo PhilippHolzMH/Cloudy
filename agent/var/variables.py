@@ -1,1 +1,0 @@
-tmp_bucket = "customer-upload-bucket12"

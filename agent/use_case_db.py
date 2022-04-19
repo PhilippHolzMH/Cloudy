@@ -2,6 +2,9 @@ import shutil
 from customer_variables import write_into_tfvars 
 from instance import get_instance_strength
 from db_engine import get_db_engine
+
+
+import os
 def write_dbtf_use_case (case):
     if case == "1":
         engine_input = input ("Which DB-Engine you would like to use ? Postgress (1) MariaDB (2)")
@@ -19,16 +22,12 @@ def write_dbtf_use_case (case):
             write_into_tfvars(tf_user,tf_hdsize,tf_instance_type, tf_dbname)
             shutil.copyfile("src/pub_vpc_postgress.tf", "../main.tf")
             shutil.move("terraform.tfvars","../terraform.tfvars")            
+            return(db_name)
         else:
             print("wrong input")
+        
     if case == "2":
-        table_name = input ("Define your Tablename: ")
-        hash_key = input("which hash-key do you want to use ? ")
-        range_key = input ("which range_key do you want to use ? ")
-        tf_table_name = "table_name = "+ '"{}"'.format(table_name)
-        tf_hash = "hash_key = "+ '"{}"'.format(hash_key)
-        tf_range = "range_key = "+ '"{}"'.format(range_key)
-        write_into_tfvars(tf_hash,tf_range,tf_table_name)
+        os.system("sh ziplambda.sh")
         shutil.copyfile("src/pub_vpc_dynamodb.tf", "../main.tf")
         shutil.move("terraform.tfvars","../terraform.tfvars")
         
