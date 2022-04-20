@@ -1,5 +1,4 @@
 data "aws_availability_zones" "available" {}
-#data "aws_subnet" "available" {}
 
 resource "aws_vpc" "customer_vpc" {
     cidr_block = "54.0.0.0/16"
