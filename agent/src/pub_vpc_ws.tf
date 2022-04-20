@@ -7,6 +7,15 @@ variable "ami" {
 variable "s3name" {
   type = string
 }
+variable "desired_capacity" {
+  type = number  
+}
+variable "max_size"{
+  type = number
+}
+variable "min_size"{
+  type = number
+}
 
 terraform {
   required_providers {
@@ -17,7 +26,7 @@ terraform {
   required_version = ">= 0.14.9"
 }
 provider "aws" {
-  region = var.region
+  region = "${var.region}"
 }
 module "public-vpc" {
   source = "./module/public-vpc/"
@@ -28,8 +37,8 @@ module "public-ec2" {
   public_subnet = module.public-vpc.public_subnet
   public_sg     = module.public-vpc.public_sg
   key           = module.key.key
-  ami           = var.ami
-  s3name        = var.s3name
+  ami           = "${var.ami}"
+  s3name        = "${var.s3name}"
 }
 module "target-group" {
   source    = "./module/target-group/"
@@ -52,10 +61,13 @@ module "ami-lc"{
   public_subnet = module.public-vpc.public_subnet
 }
 module "autoscale"{
-  source      = "./module/autoscale/"
-  template_id = module.ami-lc.template_id
-  public_sub1 = module.public-vpc.public_subnet_for_lb1
-  public_sub2 = module.public-vpc.public_subnet_for_lb2
+  source            = "./module/autoscale/"
+  template_id       = module.ami-lc.template_id
+  public_sub1       = module.public-vpc.public_subnet_for_lb1
+  public_sub2       = module.public-vpc.public_subnet_for_lb2
+  desired_capacity  = "${var.desired_capacity}"
+  max_size          = "${var.max_size}"
+  min_size          = "${var.min_size}"
 }
 
 module "key" {
