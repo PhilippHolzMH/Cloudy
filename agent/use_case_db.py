@@ -2,10 +2,10 @@ import shutil
 from customer_variables import write_into_tfvars 
 from instance import get_instance_strength
 from db_engine import get_db_engine
-
-
+from start_tf import initrds_tf
+from start_tf import initdyn_tf
 import os
-def write_dbtf_use_case (case):
+def write_dbtf_use_case (case,s3name,db_region):
     if case == "1":
         engine_input = input ("Which DB-Engine you would like to use ? Postgress (1) MariaDB (2)")
         if engine_input == "1" or engine_input == "2":
@@ -20,16 +20,14 @@ def write_dbtf_use_case (case):
             tf_dbname = str.lower("identifier = "+ '"{}"'.format(db_name))
             tf_instance_type = "instance_type = "+ '"{}"'.format(instance_type)
             write_into_tfvars(tf_user,tf_hdsize,tf_instance_type, tf_dbname)
+            initrds_tf(s3name,db_name,db_region)
             shutil.copyfile("src/pub_vpc_postgress.tf", "../main.tf")
             shutil.move("terraform.tfvars","../terraform.tfvars")            
-            return(db_name)
-        else:
-            print("wrong input")
         
     if case == "2":
         os.system("sh ziplambda.sh")
         shutil.copyfile("src/pub_vpc_dynamodb.tf", "../main.tf")
         shutil.move("terraform.tfvars","../terraform.tfvars")
-        
+        initdyn_tf(s3name)
 
    

@@ -14,5 +14,5 @@ def use_case_ws():
            else: print("Your input has to be lower than " +desired_instances)
         else: print("Your input has to be below or equal to 6 and higher or equal" +desired_instances) 
     write_into_tfvars(tf_desired,tf_max,tf_low)
-    shutil.copyfile("src/pub_vpc_ws.tf", "../main.tf")
+    shutil.copyfile("src/pub_vpc_app.tf", "../main.tf")
     shutil.move("terraform.tfvars","../terraform.tfvars")   
