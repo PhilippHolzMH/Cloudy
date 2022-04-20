@@ -1,7 +1,7 @@
 import shutil
 from customer_variables import write_into_tfvars
 
-def use_case_ws():
+def use_case_app():
     desired_instances = input("How many Instances do you desire (max 6) ? ")
     if desired_instances <= "6":
         max_instances = input("How many Instances do you want at peak-time (max 6) ? ")

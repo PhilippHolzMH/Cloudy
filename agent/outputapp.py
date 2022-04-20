@@ -6,7 +6,7 @@ def output_app(uploadurl):
     print("/// |                                                                        |")
     print("/// |  [S3-Bucket]                                                           |")
     print("/// |     ______________________ [Internet-Gateway]___________________       |")
-    print("/// |    |                                            |               |      |")
+    print("/// |    |                                  |_________                |      |")
     print("/// |    |  ____Target-Group______    _ _             |               |      |")
     print("/// |    |  |   _____Pub-VPC____  |  |  B|     _______|_________      |      |")
     print("/// |    |  |  | Subnet 1 / EC2 | |  |L A|    |   Route-Table   |     |      |")
