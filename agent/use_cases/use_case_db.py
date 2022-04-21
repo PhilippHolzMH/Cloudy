@@ -1,7 +1,7 @@
 import shutil
-from customer_variables import write_into_tfvars 
-from instance import get_instance_strength
-from db_engine import get_db_engine
+from convert_variables.customer_variables import write_into_tfvars 
+from convert_variables.instance import get_instance_strength
+from convert_variables.db_engine import get_db_engine
 from start_tf import initrds_tf
 from start_tf import initdyn_tf
 import os

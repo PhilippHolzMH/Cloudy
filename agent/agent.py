@@ -1,9 +1,9 @@
-from use_case_db import write_dbtf_use_case 
-from use_case_nonpbvpc import write_privvpctf_use_case
-from use_case_app import use_case_app
+from use_cases.use_case_db import write_dbtf_use_case 
+from use_cases.use_case_nonpbvpc import write_privvpctf_use_case
+from use_cases.use_case_app import use_case_app
 from start_tf import initapp_tf
-from region import get_ami
-from name_s3 import bucket_name_for_output
+from convert_variables.region import get_ami
+from convert_variables.name_s3 import bucket_name_for_output
 
 region_input = input ("Hi There ! Where do you want to locate your cloud7 ? US (1) EU (2) AS (3) ")
 s3_name = input("How do you want to name your s3-Bucket: ")

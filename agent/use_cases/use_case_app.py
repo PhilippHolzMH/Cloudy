@@ -1,5 +1,5 @@
 import shutil
-from customer_variables import write_into_tfvars
+from convert_variables.customer_variables import write_into_tfvars
 
 def use_case_app():
     desired_instances = input("How many Instances do you desire (max 6) ? ")

@@ -1,8 +1,9 @@
 import os
 import time
-from get_s3_upload_url import fetch_url
-from outputrds import output_rds
-from outputdyn import output_dyn
+from convert_variables.get_s3_upload_url import fetch_url
+from output.outputrds import output_rds
+from output.outputdyn import output_dyn
+from output.outputapp import output_app
 def initrds_tf(s3name,db_name,db_region):
     time.sleep(1)
     os.system("sh terraform.sh")
@@ -18,8 +19,4 @@ def initapp_tf(s3name):
     time.sleep(1)
     os.system("sh terraform.sh")
     uploadurl = fetch_url(s3name)
-    print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
-    print("///                                                                                                                                         ///")
-    print("/// Please upload your CSV-File to the S3-Bucket using following command: " + uploadurl+" ///")
-    print("///                                                                                                                                         ///")
-    print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+    output_app(uploadurl)
