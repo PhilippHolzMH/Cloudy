@@ -34,3 +34,7 @@ resource "aws_eip" "ec2"{
     instance = aws_instance.customer_instance.id
     vpc = true
 }
+
+output "ec2id" {
+  value = aws_instance.customer_instance.id
+}

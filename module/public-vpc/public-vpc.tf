@@ -1,6 +1,5 @@
 data "aws_availability_zones" "available" {}
 
-
 resource "aws_vpc" "customer_vpc" {
     cidr_block = "54.0.0.0/16"
     enable_dns_hostnames = true
@@ -121,4 +120,16 @@ output "private_sg" {
 }
 output "private_subnet_ids" {
     value = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
+}
+output "vpcid" {
+    value = aws_vpc.customer_vpc.id  
+}
+output "cidrblock" {
+    value = aws_vpc.customer_vpc.cidr_block
+}
+output "public_subnet_for_lb1" {
+    value = aws_subnet.customer_subnet[0]
+}
+output "public_subnet_for_lb2" {
+    value = aws_subnet.customer_subnet[1]
 }
