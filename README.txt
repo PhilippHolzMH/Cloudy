@@ -9,8 +9,6 @@ Action:
         -   VSCode
         -   Python
         -   AWS-Cloud
-        -   Docker
-        -   Kubernetes
-Result: ?
+Result: Agent including Website-,SQL-,non-SQL-,APPserver- and private VPC-usecase
 
 
