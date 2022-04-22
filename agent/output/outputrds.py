@@ -25,7 +25,7 @@ def output_rds(uploadurl,db_name,db_region):
     print("/// |                                                                      |")
     print("/// |______________________________________________________________________|")   
     print("/// Please use this command in your terminal: " + uploadurl+ "")
-    print("/// Your SQL-DB is callable at following Endpoint: "+ db_name +".cpbioztdqjbb."+db_region+ "rds.amazonaws.com")
+    print("/// Your SQL-DB is callable at following Endpoint: "+ db_name +".cumljbg3yygv."+db_region+ ".rds.amazonaws.com")
     if estimated_cost <"1":
         estimated_cost = "Thank god it`s a Sandbox!"
         print("/// This infrastructure incurs monthly costs of: " +estimated_cost)
