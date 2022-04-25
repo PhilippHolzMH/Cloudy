@@ -5,7 +5,7 @@ from start_tf import initapp_tf
 from convert_variables.region import get_ami
 from convert_variables.name_s3 import bucket_name_for_output
 
-region_input = input ("Hi There ! Where do you want to locate your cloud7 ? US (1) EU (2) AS (3) ")
+region_input = input ("Hi There ! Where do you want to set up your infrastructure ? US (1) EU (2) AS (3) ")
 s3_name = input("How do you want to name your s3-Bucket: ")
 db_region = get_ami(region_input)
 tmp_bucket = bucket_name_for_output(s3_name)

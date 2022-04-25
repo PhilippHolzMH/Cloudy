@@ -70,12 +70,13 @@ resource "aws_security_group" "private_sg" {
     vpc_id      = aws_vpc.customer_vpc.id
 
     ingress {
-        description      = "pubVPC to DB"
+        description      = "SQL-entry to DB"
         from_port        = 5432
         to_port          = 5432
         protocol         = "tcp"
         cidr_blocks      = ["0.0.0.0/0"]
     }
+
     egress {
         from_port        = 0
         to_port          = 0

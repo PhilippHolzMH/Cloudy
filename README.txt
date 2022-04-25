@@ -8,7 +8,18 @@ Action:
         -   Git
         -   VSCode
         -   Python
-        -   AWS-Cloud
-Result: Agent including Website-,SQL-,non-SQL-,APPserver- and private VPC-usecase
+        -   EC2
+        -   S3
+        -   Lambda
+        -   Autoscaling group
+        -   Loadbalancer
+        -   DynamoDB
+        -   RDS
+        -   Bash
+
+
+Result: Cloudy sets up an AWS cloud infrastructure including website-, SQL-/noSQL-, app-server- and private VPC-usecase. 
+Besides, Cloudy can also represent different regions, scaling capacity, database-user, -names, -size and -content.
+It includes all common security aspects to create a secure environment.
 
 

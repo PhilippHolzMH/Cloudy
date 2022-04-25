@@ -1,5 +1,5 @@
 import shutil
-from convert_variables.customer_variables import write_into_tfvars 
+from customer_variables import write_into_tfvars 
 from convert_variables.instance import get_instance_strength
 from convert_variables.db_engine import get_db_engine
 from start_tf import initrds_tf
@@ -20,9 +20,10 @@ def write_dbtf_use_case (case,s3name,db_region):
             tf_dbname = str.lower("identifier = "+ '"{}"'.format(db_name))
             tf_instance_type = "instance_type = "+ '"{}"'.format(instance_type)
             write_into_tfvars(tf_user,tf_hdsize,tf_instance_type, tf_dbname)
-            initrds_tf(s3name,db_name,db_region)
             shutil.copyfile("src/pub_vpc_postgress.tf", "../main.tf")
-            shutil.move("terraform.tfvars","../terraform.tfvars")            
+            shutil.move("terraform.tfvars","../terraform.tfvars") 
+            initrds_tf(s3name,db_name,db_region)
+           
         
     if case == "2":
         os.system("sh ziplambda.sh")
